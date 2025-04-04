@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import Message from './Message';
 import ChatInput from './ChatInput';
@@ -56,7 +57,7 @@ const Chat: React.FC = () => {
     setMessages(prev => [...prev, userMessage]);
     setIsTyping(true);
     
-    const updatedHistory = [
+    const updatedHistory: GeminiMessage[] = [
       ...conversationHistory,
       {
         role: 'user',
