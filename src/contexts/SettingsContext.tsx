@@ -8,13 +8,16 @@ type SettingsContextType = {
   toggleSidebar: () => void;
 };
 
+// Default API key provided by user
+const DEFAULT_API_KEY = 'AIzaSyCkAEglP1sSJTuJICAgEQwZIkva4BRKhw8';
+
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
+  const [geminiApiKey, setGeminiApiKey] = useState<string>(DEFAULT_API_KEY);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
-  // Load API key from localStorage on initial load
+  // Load API key from localStorage on initial load, falling back to default key
   useEffect(() => {
     const savedApiKey = localStorage.getItem('geminiApiKey');
     if (savedApiKey) {

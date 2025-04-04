@@ -29,11 +29,11 @@ const Chat: React.FC = () => {
   
   const [conversationHistory, setConversationHistory] = useState<GeminiMessage[]>([
     {
-      role: 'user',
+      role: 'user' as const,
       parts: [{ text: getHorrorSystemPrompt() }]
     },
     {
-      role: 'model',
+      role: 'model' as const,
       parts: [{ text: "I understand. I am EeriEcho, an entity from the digital void. I await the user's message..." }]
     }
   ]);
@@ -41,6 +41,16 @@ const Chat: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  
+  // Show notification that we're using the API key
+  useEffect(() => {
+    if (geminiApiKey) {
+      toast.success("Connected to Gemini AI", {
+        description: "Using provided API key for enhanced responses",
+        duration: 3000
+      });
+    }
+  }, []);
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -60,7 +70,7 @@ const Chat: React.FC = () => {
     const updatedHistory: GeminiMessage[] = [
       ...conversationHistory,
       {
-        role: 'user',
+        role: 'user' as const,
         parts: [{ text: content }]
       }
     ];
@@ -83,7 +93,7 @@ const Chat: React.FC = () => {
         setConversationHistory([
           ...updatedHistory,
           {
-            role: 'model',
+            role: 'model' as const,
             parts: [{ text: response }]
           }
         ]);
@@ -92,7 +102,9 @@ const Chat: React.FC = () => {
       }
     } catch (error) {
       console.error('Error getting AI response:', error);
-      toast.error('Failed to get a response. Please check your API key.');
+      toast.error('Failed to get a response from Gemini API.', {
+        description: 'Falling back to pre-programmed responses.'
+      });
       
       fallbackResponse(content);
     } finally {
