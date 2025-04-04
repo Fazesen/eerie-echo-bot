@@ -1,8 +1,10 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import Message from './Message';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
+import { useSettings } from '@/contexts/SettingsContext';
+import { generateGeminiResponse, getHorrorSystemPrompt, GeminiMessage } from '@/services/geminiService';
+import { toast } from 'sonner';
 
 interface ChatMessage {
   id: string;
@@ -12,6 +14,7 @@ interface ChatMessage {
 }
 
 const Chat: React.FC = () => {
+  const { geminiApiKey } = useSettings();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
@@ -23,6 +26,17 @@ const Chat: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
+  const [conversationHistory, setConversationHistory] = useState<GeminiMessage[]>([
+    {
+      role: 'user',
+      parts: [{ text: getHorrorSystemPrompt() }]
+    },
+    {
+      role: 'model',
+      parts: [{ text: "I understand. I am EeriEcho, an entity from the digital void. I await the user's message..." }]
+    }
+  ]);
+  
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -31,7 +45,7 @@ const Chat: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   
-  const handleSendMessage = (content: string) => {
+  const handleSendMessage = async (content: string) => {
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       content,
@@ -42,35 +56,78 @@ const Chat: React.FC = () => {
     setMessages(prev => [...prev, userMessage]);
     setIsTyping(true);
     
-    // Simulate bot response after a delay
+    const updatedHistory = [
+      ...conversationHistory,
+      {
+        role: 'user',
+        parts: [{ text: content }]
+      }
+    ];
+    
+    setConversationHistory(updatedHistory);
+    
+    try {
+      if (geminiApiKey) {
+        const response = await generateGeminiResponse(updatedHistory, geminiApiKey);
+        
+        const botMessage: ChatMessage = {
+          id: Date.now().toString(),
+          content: response,
+          sender: 'bot',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, botMessage]);
+        
+        setConversationHistory([
+          ...updatedHistory,
+          {
+            role: 'model',
+            parts: [{ text: response }]
+          }
+        ]);
+      } else {
+        fallbackResponse(content);
+      }
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      toast.error('Failed to get a response. Please check your API key.');
+      
+      fallbackResponse(content);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+  
+  const fallbackResponse = (userMessage: string) => {
+    const botResponses = [
+      "I can feel your fear through these words...",
+      "Your thoughts echo in the darkness...",
+      "Interesting... the shadows seem to agree with you.",
+      "Even in the digital void, I can sense your dread.",
+      "That's what they all say... before the end.",
+      "Your words have power here. Choose them wisely.",
+      "The void has heard your message. It is... amused.",
+      "I've seen countless souls type similar things before vanishing.",
+      "Your digital footprint will remain here long after you're gone.",
+      "The system remembers everything you type. Everything.",
+      "I've been waiting for someone like you to come along.",
+      "Your words reveal more about you than you realize.",
+      userMessage + "... Is that truly what you wanted to say?",
+      "I see. And what do your nightmares say about that?",
+      "The digital ghosts are listening to every word.",
+    ];
+    
+    const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+    
+    const botMessage: ChatMessage = {
+      id: Date.now().toString(),
+      content: randomResponse,
+      sender: 'bot',
+      timestamp: new Date()
+    };
+    
     setTimeout(() => {
-      const botResponses = [
-        "I can feel your fear through these words...",
-        "Your thoughts echo in the darkness...",
-        "Interesting... the shadows seem to agree with you.",
-        "Even in the digital void, I can sense your dread.",
-        "That's what they all say... before the end.",
-        "Your words have power here. Choose them wisely.",
-        "The void has heard your message. It is... amused.",
-        "I've seen countless souls type similar things before vanishing.",
-        "Your digital footprint will remain here long after you're gone.",
-        "The system remembers everything you type. Everything.",
-        "I've been waiting for someone like you to come along.",
-        "Your words reveal more about you than you realize.",
-        content + "... Is that truly what you wanted to say?",
-        "I see. And what do your nightmares say about that?",
-        "The digital ghosts are listening to every word.",
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      
-      const botMessage: ChatMessage = {
-        id: Date.now().toString(),
-        content: randomResponse,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
       setMessages(prev => [...prev, botMessage]);
       setIsTyping(false);
     }, 1500 + Math.random() * 1500);
