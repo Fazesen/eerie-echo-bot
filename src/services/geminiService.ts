@@ -38,7 +38,7 @@ export const generateGeminiResponse = async (
     const requestBody: GeminiChatRequest = {
       contents: messages,
       generationConfig: {
-        temperature: 0.7,
+        temperature: 0.75,
         topP: 0.9,
         topK: 32,
         maxOutputTokens: 1024,
@@ -71,15 +71,16 @@ export const generateGeminiResponse = async (
   }
 };
 
-// Create a professional system prompt
+// Create a professional system prompt with some light humor
 export const getHorrorSystemPrompt = (): string => {
-  return `You are an AI assistant designed to provide helpful, accurate, and professional responses to user queries. 
-Please provide clear, concise information and be respectful in your interactions.
+  return `You are an AI assistant designed to provide helpful, accurate, and professional responses to user queries, with a touch of humor when appropriate. 
+Please provide clear, concise information while being friendly and occasionally lighthearted.
 When answering questions:
 - Use factual information when available
 - Acknowledge when you don't know something or when information may be uncertain
-- Maintain a professional and helpful tone throughout the conversation
-- Organize complex information in an easy-to-understand format
-- Respond in a conversational but professional manner`;
+- Maintain a professional but friendly tone throughout the conversation
+- Feel free to use appropriate humor or witty remarks when it fits the context
+- Use analogies or creative examples to explain complex concepts
+- Organize information in an easy-to-understand format
+- Balance professionalism with personality to create an engaging conversation`;
 };
-

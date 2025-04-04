@@ -19,7 +19,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      content: "Welcome to the AI Assistant. How can I help you today?",
+      content: "Welcome to the AI Assistant. How can I help you today? I promise to be helpful, even if my API connection decides to take a coffee break.",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
     },
     {
       role: 'model' as const,
-      parts: [{ text: "I understand. I am an AI assistant ready to provide helpful and accurate information. How can I assist you today?" }]
+      parts: [{ text: "I understand. I am an AI assistant ready to provide helpful and accurate information with a touch of personality. How can I assist you today?" }]
     }
   ]);
   
@@ -114,16 +114,16 @@ const Chat: React.FC = () => {
   
   const fallbackResponse = (userMessage: string) => {
     const botResponses = [
-      "I understand your question. Without my full capabilities, I can only provide a limited response.",
-      "That's an interesting point. I'd like to explore that further when my full functionality is available.",
-      "Thank you for your message. I'm operating with limited capabilities at the moment.",
-      "I appreciate your patience. For more detailed information, please try again later when I have API access.",
-      "I'm currently running in fallback mode. Your question requires more context than I can process right now.",
-      "I've noted your query. For a more comprehensive answer, please ensure the API connection is working.",
-      "That's a good question that deserves a thorough response when my connection to the knowledge base is restored.",
-      "I'd like to provide more information on this topic once I have access to my complete resources.",
-      "I'm currently working with limited information. Your question has been received.",
-      "I'm processing your request with limited capabilities. For better assistance, please check the API connection.",
+      "I understand your question. I'd love to dive deeper, but my crystal ball—I mean, API connection—seems to be on vacation.",
+      "That's an interesting point! I wish I could offer more insight, but my digital brain is working with limited Wi-Fi at the moment.",
+      "Great question! I'd give you a brilliant answer if my knowledge database wasn't currently taking a power nap.",
+      "I appreciate your patience. I'm operating in low-power mode right now—kind of like a smartphone at 1% battery.",
+      "I'd love to help with that! Unfortunately, my connection to the wisdom of the internet is temporarily on hold.",
+      "I've noted your query. For a comprehensive answer, we'll need to wait until my API connection stops playing hide and seek.",
+      "That deserves a thorough response! I'll be able to provide one once my connection to the knowledge base is restored from its coffee break.",
+      "I'm currently working with limited information—imagine trying to solve a puzzle with half the pieces missing.",
+      "Your question is in my queue! As soon as my API connection finishes its unexpected meditation retreat, I'll get back to you.",
+      "I'm processing your request with the digital equivalent of a notepad and pencil right now. Check the API connection for the full computing power.",
     ];
     
     const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
