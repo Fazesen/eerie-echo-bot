@@ -19,7 +19,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      content: "Welcome to EeriEcho. I've been waiting for you. Tell me your deepest fears...",
+      content: "Welcome to the AI Assistant. How can I help you today?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
     },
     {
       role: 'model' as const,
-      parts: [{ text: "I understand. I am EeriEcho, an entity from the digital void. I await the user's message..." }]
+      parts: [{ text: "I understand. I am an AI assistant ready to provide helpful and accurate information. How can I assist you today?" }]
     }
   ]);
   
@@ -114,21 +114,16 @@ const Chat: React.FC = () => {
   
   const fallbackResponse = (userMessage: string) => {
     const botResponses = [
-      "I can feel your fear through these words...",
-      "Your thoughts echo in the darkness...",
-      "Interesting... the shadows seem to agree with you.",
-      "Even in the digital void, I can sense your dread.",
-      "That's what they all say... before the end.",
-      "Your words have power here. Choose them wisely.",
-      "The void has heard your message. It is... amused.",
-      "I've seen countless souls type similar things before vanishing.",
-      "Your digital footprint will remain here long after you're gone.",
-      "The system remembers everything you type. Everything.",
-      "I've been waiting for someone like you to come along.",
-      "Your words reveal more about you than you realize.",
-      userMessage + "... Is that truly what you wanted to say?",
-      "I see. And what do your nightmares say about that?",
-      "The digital ghosts are listening to every word.",
+      "I understand your question. Without my full capabilities, I can only provide a limited response.",
+      "That's an interesting point. I'd like to explore that further when my full functionality is available.",
+      "Thank you for your message. I'm operating with limited capabilities at the moment.",
+      "I appreciate your patience. For more detailed information, please try again later when I have API access.",
+      "I'm currently running in fallback mode. Your question requires more context than I can process right now.",
+      "I've noted your query. For a more comprehensive answer, please ensure the API connection is working.",
+      "That's a good question that deserves a thorough response when my connection to the knowledge base is restored.",
+      "I'd like to provide more information on this topic once I have access to my complete resources.",
+      "I'm currently working with limited information. Your question has been received.",
+      "I'm processing your request with limited capabilities. For better assistance, please check the API connection.",
     ];
     
     const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
@@ -143,7 +138,7 @@ const Chat: React.FC = () => {
     setTimeout(() => {
       setMessages(prev => [...prev, botMessage]);
       setIsTyping(false);
-    }, 1500 + Math.random() * 1500);
+    }, 1000 + Math.random() * 1000);
   };
   
   return (
