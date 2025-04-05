@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Skull } from 'lucide-react';
+import { Skull, History } from 'lucide-react';
 
 const ChatHeader: React.FC = () => {
   return (
@@ -16,12 +16,19 @@ const ChatHeader: React.FC = () => {
             <p className="text-xs text-gray-400">Online | Waiting for your fears...</p>
           </div>
         </div>
-        <div className="text-xs text-horror-blood animate-pulse">
-          System Status: <span className="text-green-500">ACTIVE</span>
+        
+        <div className="flex items-center space-x-2">
+          <div className="text-xs text-horror-blood animate-pulse">
+            Status: <span className="text-green-500">ACTIVE</span>
+          </div>
+          <div className="flex md:hidden items-center text-sm bg-horror-blood/10 px-2 py-1 rounded-md">
+            <History className="h-3 w-3 mr-1 text-horror-blood" />
+            <span className="text-xs">History</span>
+          </div>
         </div>
       </div>
       
-      <div className="flex flex-col items-center justify-center mt-1 p-2 bg-horror-blood/10 rounded-md border border-horror-blood/20">
+      <div className="block sm:hidden flex-col items-center justify-center mt-1 p-2 bg-horror-blood/10 rounded-md border border-horror-blood/20">
         <div className="text-center grid grid-cols-3 gap-3 w-full">
           <div className="p-1">
             <p className="text-sm font-bold text-gray-200">

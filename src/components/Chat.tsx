@@ -19,13 +19,19 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      content: "Welcome to the AI Assistant. How can I help you today? I promise to be helpful, even if my API connection decides to take a coffee break.",
+      content: "Welcome to KalaJadu. How can I help you today? I promise to be helpful, even if my API connection decides to take a coffee break.",
       sender: 'bot',
       timestamp: new Date()
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [chatHistory, setChatHistory] = useState<{ date: string, messages: ChatMessage[] }[]>([
+    {
+      date: new Date().toLocaleDateString(),
+      messages: []
+    }
+  ]);
   
   const [conversationHistory, setConversationHistory] = useState<GeminiMessage[]>([
     {
@@ -51,6 +57,20 @@ const Chat: React.FC = () => {
       });
     }
   }, []);
+  
+  useEffect(() => {
+    // Group messages by date for history
+    const today = new Date().toLocaleDateString();
+    const todayHistory = chatHistory.find(h => h.date === today);
+    
+    if (todayHistory) {
+      setChatHistory(prev => 
+        prev.map(h => h.date === today ? { ...h, messages } : h)
+      );
+    } else {
+      setChatHistory(prev => [...prev, { date: today, messages }]);
+    }
+  }, [messages]);
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -146,17 +166,19 @@ const Chat: React.FC = () => {
       <ChatHeader />
       
       <div className="flex-1 overflow-y-auto p-4 bg-opacity-80 backdrop-blur-sm">
-        <div className="space-y-4">
-          {messages.map(message => (
-            <Message
-              key={message.id}
-              content={message.content}
-              sender={message.sender}
-              timestamp={message.timestamp}
-            />
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
+        {chatHistory.length > 0 && (
+          <div className="space-y-4">
+            {chatHistory[chatHistory.length - 1].messages.map(message => (
+              <Message
+                key={message.id}
+                content={message.content}
+                sender={message.sender}
+                timestamp={message.timestamp}
+              />
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
       </div>
       
       <div className="p-4 border-t border-horror-blood/30 bg-horror-darker bg-opacity-80 backdrop-blur-sm">
