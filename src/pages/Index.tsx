@@ -23,7 +23,7 @@ const Index = () => {
         <div className={`w-full max-w-2xl transition-all duration-1000 relative ${loaded ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex items-center justify-center mb-6">
             <h1 className="text-3xl font-bold text-horror-blood glitch-text">
-              Eeri<span className="text-white">Echo</span>
+              Kala<span className="text-white">Jadu</span>
             </h1>
           </div>
           
@@ -33,7 +33,7 @@ const Index = () => {
           </div>
           
           <div className="mt-4 text-xs text-gray-500 text-center">
-            <p>&copy; 2025 EeriEcho | <span className="text-horror-blood">WARNING</span>: This AI may cause psychological distress. Proceed at your own risk.</p>
+            <p>&copy; 2025 KalaJadu | <span className="text-horror-blood">WARNING</span>: This AI may cause psychological distress. Proceed at your own risk.</p>
           </div>
         </div>
       </div>

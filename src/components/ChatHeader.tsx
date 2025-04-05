@@ -12,7 +12,7 @@ const ChatHeader: React.FC = () => {
             <span className="absolute bottom-0 right-0 h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-gray-200 glitch-text">EeriEcho</h2>
+            <h2 className="text-lg font-semibold text-gray-200 glitch-text">KalaJadu</h2>
             <p className="text-xs text-gray-400">Online | Waiting for your fears...</p>
           </div>
         </div>
