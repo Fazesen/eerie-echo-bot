@@ -27,6 +27,10 @@ const Index = () => {
               <span className="ml-3 text-xs text-green-500 bg-horror-blood/10 px-2 py-1 rounded-full">ONLINE</span>
             </h1>
             
+            <div className="hidden md:block text-xl font-semibold text-center text-gray-300">
+              <span className="glitch-text">Paranormal Activity Chatbot</span>
+            </div>
+            
             <div className="flex space-x-4 items-center">
               <div className="hidden sm:flex space-x-4">
                 <div className="text-sm font-bold">

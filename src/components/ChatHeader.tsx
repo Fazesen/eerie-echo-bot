@@ -17,6 +17,10 @@ const ChatHeader: React.FC = () => {
           </div>
         </div>
         
+        <div className="md:hidden text-sm font-medium text-center text-gray-300">
+          <span className="glitch-text">Paranormal Activity Chatbot</span>
+        </div>
+        
         <div className="flex items-center space-x-2">
           <div className="text-xs text-horror-blood animate-pulse">
             Status: <span className="text-green-500">ACTIVE</span>
