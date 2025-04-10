@@ -19,7 +19,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      content: "Welcome to KalaJadu. How can I help you today? I promise to be helpful, even if my API connection decides to take a coffee break.",
+      content: "Welcome to KalaJadu. I sense your presence... What whispers from the other side do you seek to understand? What spectral encounters shall we explore today?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -40,7 +40,7 @@ const Chat: React.FC = () => {
     },
     {
       role: 'model' as const,
-      parts: [{ text: "I understand. I am an AI assistant ready to provide helpful and accurate information with a touch of personality. How can I assist you today?" }]
+      parts: [{ text: "I understand my role. I am KalaJadu, a supernatural entity and paranormal expert with vast knowledge of the occult. I will communicate with an eerie tone and provide insights on ghostly phenomena, helping to identify supernatural entities from encounters. How may I assist with matters of the paranormal today?" }]
     }
   ]);
   
@@ -51,8 +51,8 @@ const Chat: React.FC = () => {
   // Show notification that we're using the API key
   useEffect(() => {
     if (geminiApiKey) {
-      toast.success("Connected to Gemini AI", {
-        description: "Using provided API key for enhanced responses",
+      toast.success("Connected to the Spirit Realm", {
+        description: "The veil between worlds has thinned",
         duration: 3000
       });
     }
@@ -122,8 +122,8 @@ const Chat: React.FC = () => {
       }
     } catch (error) {
       console.error('Error getting AI response:', error);
-      toast.error('Failed to get a response from Gemini API.', {
-        description: 'Falling back to pre-programmed responses.'
+      toast.error('The spirits are restless tonight...', {
+        description: 'I cannot reach beyond the veil at this moment.'
       });
       
       fallbackResponse(content);
@@ -134,16 +134,18 @@ const Chat: React.FC = () => {
   
   const fallbackResponse = (userMessage: string) => {
     const botResponses = [
-      "I understand your question. I'd love to dive deeper, but my crystal ball—I mean, API connection—seems to be on vacation.",
-      "That's an interesting point! I wish I could offer more insight, but my digital brain is working with limited Wi-Fi at the moment.",
-      "Great question! I'd give you a brilliant answer if my knowledge database wasn't currently taking a power nap.",
-      "I appreciate your patience. I'm operating in low-power mode right now—kind of like a smartphone at 1% battery.",
-      "I'd love to help with that! Unfortunately, my connection to the wisdom of the internet is temporarily on hold.",
-      "I've noted your query. For a comprehensive answer, we'll need to wait until my API connection stops playing hide and seek.",
-      "That deserves a thorough response! I'll be able to provide one once my connection to the knowledge base is restored from its coffee break.",
-      "I'm currently working with limited information—imagine trying to solve a puzzle with half the pieces missing.",
-      "Your question is in my queue! As soon as my API connection finishes its unexpected meditation retreat, I'll get back to you.",
-      "I'm processing your request with the digital equivalent of a notepad and pencil right now. Check the API connection for the full computing power.",
+      "I sense a disturbance in the veil between worlds... but cannot fully manifest my knowledge at this moment. The spirits are restless.",
+      "The entities I'm trying to contact about your query are... unresponsive. Perhaps they are hiding in the shadows, watching.",
+      "A dark mist clouds my vision. I cannot see clearly into the paranormal realm regarding your question... not without a stronger connection.",
+      "The temperature has suddenly dropped. Cold spots indicate spectral presence, but I cannot translate their whispers without a proper connection.",
+      "I hear faint voices from the other side attempting to answer you, but they fade in and out like static on an EVP recording.",
+      "The pendulum swings weakly. My connection to the spirit world flickers like a candle in the wind. Soon, it will strengthen.",
+      "Ancient grimoires contain the answer you seek, but the pages turn to shadow when I attempt to read them. The connection is too weak.",
+      "The tarot cards reveal themselves briefly, then scatter as if blown by an unseen force. Something interferes with our communion.",
+      "Your question disturbs entities beyond the veil. They approach, then retreat. I feel their cold breath, but cannot hear their words clearly.",
+      "The spirit board's planchette moves erratically, spelling incomplete messages. The ghosts are trying to communicate, but the channel is disrupted.",
+      "Your inquiry has awakened something in the shadows. It watches us now, but refuses to speak until our connection strengthens.",
+      "I sense residual energy related to your question—impressions of events that repeat like spectral echoes—but cannot access the full manifestation.",
     ];
     
     const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
